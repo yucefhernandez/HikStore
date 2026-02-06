@@ -37,24 +37,3 @@ export enum SectionId {
   LOCATION = 'location',
   CONTACT = 'contact',
 }
-
-// Extend JSX namespace to support React Three Fiber elements globally
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      group: any;
-      mesh: any;
-      boxGeometry: any;
-      sphereGeometry: any;
-      meshStandardMaterial: any;
-      meshBasicMaterial: any;
-      meshPhysicalMaterial: any;
-      cylinderGeometry: any;
-      ambientLight: any;
-      spotLight: any;
-      pointLight: any;
-      primitive: any;
-      directionalLight: any;
-    }
-  }
-}

@@ -21,6 +21,46 @@ const staggerContainer = {
   }
 };
 
+interface InputFieldProps {
+  label: string;
+  type?: string;
+  isTextArea?: boolean;
+}
+
+const InputField: React.FC<InputFieldProps> = ({ label, type = 'text', isTextArea = false }) => {
+  // Base styles for the input/textarea
+  // focus:border-hik-red and transition-colors handle the smooth border color change
+  const baseInputStyles = "block py-4 px-0 w-full text-gray-900 bg-transparent border-0 border-b border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-hik-red peer transition-colors duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]";
+  
+  // Styles for the floating label
+  // peer-placeholder-shown controls the resting state (down/large)
+  // peer-focus controls the active state (up/small/red)
+  const labelStyles = "peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-hik-red peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 ease-[cubic-bezier(0.4,0,0.2,1)]";
+
+  return (
+    <div className="relative z-0 w-full mb-8 group">
+      {isTextArea ? (
+        <textarea
+          rows={4}
+          className={`${baseInputStyles} resize-none`}
+          placeholder=" "
+          required
+        />
+      ) : (
+        <input
+          type={type}
+          className={baseInputStyles}
+          placeholder=" "
+          required
+        />
+      )}
+      <label className={labelStyles}>
+        {label}
+      </label>
+    </div>
+  );
+};
+
 const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -95,38 +135,16 @@ const Contact: React.FC = () => {
               variants={fadeInUpVariants}
               className="bg-white rounded-[2rem] p-10 shadow-2xl border border-gray-100 relative z-10"
             >
-              <form className="space-y-8">
-                {['Nombre completo', 'Correo electrónico'].map((label, i) => (
-                  <div key={i} className="relative group">
-                    <input 
-                      type={i === 1 ? 'email' : 'text'}
-                      className="block py-4 px-0 w-full text-gray-900 bg-transparent border-0 border-b border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-hik-red peer transition-colors"
-                      placeholder=" " 
-                      required
-                    />
-                    <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-hik-red peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                      {label}
-                    </label>
-                  </div>
-                ))}
-
-                <div className="relative group">
-                  <textarea 
-                    rows={4}
-                    className="block py-4 px-0 w-full text-gray-900 bg-transparent border-0 border-b border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-hik-red peer transition-colors resize-none"
-                    placeholder=" " 
-                    required
-                  ></textarea>
-                  <label className="peer-focus:font-medium absolute text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-hik-red peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                    Mensaje o Solicitud
-                  </label>
-                </div>
+              <form>
+                <InputField label="Nombre completo" />
+                <InputField label="Correo electrónico" type="email" />
+                <InputField label="Mensaje o Solicitud" isTextArea />
 
                 <motion.button 
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit" 
-                  className="w-full bg-gray-900 text-white font-bold py-5 rounded-xl hover:bg-hik-red transition-colors shadow-lg flex justify-center items-center space-x-2"
+                  className="w-full bg-gray-900 text-white font-bold py-5 rounded-xl hover:bg-hik-red transition-colors shadow-lg flex justify-center items-center space-x-2 mt-4"
                 >
                   <span>Enviar Mensaje</span>
                   <ArrowUpRight size={18} />
