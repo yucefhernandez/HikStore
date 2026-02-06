@@ -146,7 +146,7 @@ const Location: React.FC = () => {
                   <MapPin className="text-white w-7 h-7" />
                 </motion.div>
                 <motion.div variants={fadeInUpVariants}>
-                  <h2 className="text-3xl font-bold tracking-tight">Showroom</h2>
+                  <h2 className="text-3xl font-bold tracking-tight">HickStore</h2>
                   <p className="text-white/60 text-sm tracking-wide uppercase">Aguascalientes, MX</p>
                 </motion.div>
               </div>

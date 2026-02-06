@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, Float } from '@react-three/drei';
 import { SecurityCamera } from '../UI/3D/SecurityCamera';
 import { motion } from 'framer-motion';
+import Logo from '../Img/Icono.png';
 
 const Footer: React.FC = () => {
   const [mouseX, setMouseX] = useState(0);
@@ -63,11 +64,16 @@ const Footer: React.FC = () => {
           
           {/* Column 1: Brand */}
           <div className="space-y-6">
-            <div>
-              <h3 className="text-3xl font-black text-white tracking-tight mb-2">{CONTACT_DATA.brand}</h3>
-              <div className="flex items-center space-x-2 text-slate-400 text-sm">
-                <ShieldCheck size={16} className="text-hik-green" />
-                <span className="font-medium tracking-wide uppercase">{CONTACT_DATA.distributor}</span>
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center p-2 border border-white/10 shadow-2xl backdrop-blur-sm">
+                <img src={Logo} alt="Logo" className="w-full h-full object-contain" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-black text-white tracking-tight">{CONTACT_DATA.brand}</h3>
+                <div className="flex items-center space-x-2 text-slate-400 text-[10px] mt-1">
+                  <ShieldCheck size={12} className="text-hik-green" />
+                  <span className="font-bold tracking-widest uppercase">{CONTACT_DATA.distributor}</span>
+                </div>
               </div>
             </div>
             <p className="text-slate-400 leading-relaxed text-sm">
@@ -97,7 +103,7 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-hik-red pl-3">Navegación</h4>
             <ul className="space-y-4">
               {[
-                { label: 'Catálogo 2024', href: '#products' },
+                { label: 'Catálogo 2026', href: '#products' },
                 { label: 'Nosotros', href: '#features' },
                 { label: 'Ubicación', href: '#location' },
                 { label: 'Soporte Técnico', href: '#contact' },
@@ -121,7 +127,7 @@ const Footer: React.FC = () => {
                       <MapPin size={16} />
                    </div>
                    <div className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-                      <span className="block font-bold text-white mb-1">Showroom</span>
+                      <span className="block font-bold text-white mb-1">HickStore</span>
                       {CONTACT_DATA.address}
                    </div>
                 </li>

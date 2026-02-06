@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone } from 'lucide-react';
 import { CONTACT_DATA } from '../../constants';
+import Logo from '../Img/Icono.png';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,12 +38,17 @@ const Navbar: React.FC = () => {
         
         {/* Logo */}
         <a href="#" className="flex items-center space-x-3 group">
-            <div className="w-8 h-8 bg-hik-red text-white rounded-lg flex items-center justify-center font-black text-xs group-hover:bg-red-600 transition-colors duration-300">
-                HS
+            <div className="relative w-10 h-10 flex items-center justify-center">
+                <div className="absolute inset-0 bg-hik-red/10 rounded-xl blur-lg group-hover:bg-hik-red/20 transition-all duration-500" />
+                <img 
+                    src={Logo} 
+                    alt="HikStore Logo" 
+                    className="relative w-full h-full object-contain filter drop-shadow-md group-hover:scale-110 transition-transform duration-500 ease-out"
+                />
             </div>
             <div className="flex flex-col leading-none">
-                <span className="font-bold text-gray-900 tracking-tight text-lg">HikStore</span>
-                <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Aguascalientes</span>
+                <span className="font-bold text-gray-900 tracking-tight text-xl">HikStore</span>
+                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em]">Aguascalientes</span>
             </div>
         </a>
 

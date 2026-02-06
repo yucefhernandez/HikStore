@@ -153,7 +153,7 @@ const DesktopGallery = () => {
   return (
     <section ref={containerRef} className="relative bg-gray-50 px-8 py-20" id="products">
       <div className="max-w-[90%] mx-auto mb-20 text-center sticky top-20 z-0">
-         <h2 className="text-4xl font-bold mb-4">Catálogo <span className="text-hik-red">2024</span></h2>
+         <h2 className="text-4xl font-bold mb-4">Productos estrella <span className="text-hik-red">2026</span></h2>
          <p className="text-gray-500">Tecnología de punta disponible ahora</p>
       </div>
       

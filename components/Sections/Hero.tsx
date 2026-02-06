@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
 import { SecurityCamera } from '../UI/3D/SecurityCamera';
 import { ChevronRight } from 'lucide-react';
+import Logo from '../Img/Icono.png';
 
 // Curva de entrada cinematográfica
 const cinematicEase: [number, number, number, number] = [0.22, 1, 0.36, 1]; 
@@ -49,19 +50,7 @@ const Hero: React.FC = () => {
         {/* Left Column: Text Content */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 mt-6 md:mt-0">
           
-          {/* Badge Entrada Suave */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: cinematicEase, delay: 0.2 }}
-            className="mb-6 flex items-center space-x-2 bg-white/80 backdrop-blur-md border border-gray-200 px-5 py-2 rounded-full shadow-sm"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-hik-green opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-hik-green"></span>
-            </span>
-            <span className="text-[10px] font-bold text-gray-600 tracking-widest uppercase">Distribuidor Oficial</span>
-          </motion.div>
+        
 
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
