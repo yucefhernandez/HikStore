@@ -1,142 +1,133 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FEATURES } from '../../constants';
+import { LucideIcon } from 'lucide-react';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.3, // Retraso dramático entre cada tarjeta
-    }
-  }
-};
+interface FeatureItemProps {
+  feature: typeof FEATURES[0];
+  index: number;
+}
 
-const cardVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 100, 
-    scale: 0.8,
-    rotateX: -15 
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1,
-    rotateX: 0,
-    transition: { 
-      type: "spring" as const,
-      bounce: 0.4,
-      duration: 1.2
-    } 
-  }
-};
+const FeatureItem: React.FC<FeatureItemProps> = ({ feature, index }) => {
+  // Determine specific color based on index for variety
+  const accentColorClass = index === 0 ? 'text-hik-green' : index === 1 ? 'text-hik-blue' : 'text-hik-red';
+  const bgHoverClass = index === 0 ? 'group-hover:bg-green-50' : index === 1 ? 'group-hover:bg-blue-50' : 'group-hover:bg-red-50';
+  const textHoverClass = index === 0 ? 'group-hover:text-hik-green' : index === 1 ? 'group-hover:text-hik-blue' : 'group-hover:text-hik-red';
 
-const iconVariants = {
-  hover: { 
-    scale: 1.2, 
-    rotate: [0, -10, 10, 0],
-    transition: { duration: 0.5 }
-  }
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }} // Triggers when element is 10% into view
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="group relative flex flex-col md:flex-row gap-8 items-start md:items-center py-12 md:py-24 border-b border-gray-100 last:border-0"
+    >
+      {/* Background Hover Effect - Subtle */}
+      <div className={`absolute inset-0 -mx-6 md:-mx-12 rounded-3xl transition-colors duration-500 ease-out -z-10 ${bgHoverClass} opacity-0 group-hover:opacity-30`} />
+
+      {/* Icon Area */}
+      <div className="shrink-0 relative">
+        <div className="w-24 h-24 bg-white rounded-2xl border border-gray-200 flex items-center justify-center shadow-sm relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:border-transparent group-hover:shadow-xl">
+          <feature.icon className={`w-10 h-10 text-gray-700 transition-colors duration-300 ${textHoverClass}`} strokeWidth={1.5} />
+        </div>
+        {/* Decorative shadow blob */}
+        <div className={`absolute inset-0 bg-gray-200 blur-xl rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-500 -z-0 transform scale-75 translate-y-4`} />
+      </div>
+
+      {/* Content Area */}
+      <div className="flex-1">
+        <div className="flex items-baseline space-x-4 mb-2">
+            <span className="text-xs font-black text-gray-300 tracking-widest uppercase">0{index + 1}</span>
+            <div className={`h-[1px] w-0 bg-gray-900 group-hover:w-12 transition-all duration-500 ease-out`} />
+        </div>
+        
+        <h3 className="text-4xl md:text-5xl font-black text-gray-900 mb-4 tracking-tight leading-[0.95] group-hover:translate-x-2 transition-transform duration-300">
+          {feature.title}
+        </h3>
+        
+        <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-lg">
+          {feature.description}
+        </p>
+      </div>
+      
+      {/* Arrow Visual Indicator on Hover (Desktop) */}
+      <div className="hidden md:block opacity-0 group-hover:opacity-100 -translate-x-10 group-hover:translate-x-0 transition-all duration-500 text-gray-300">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+      </div>
+
+    </motion.div>
+  );
 };
 
 const Features: React.FC = () => {
   return (
-    <section className="py-32 bg-gray-50 relative z-10 overflow-hidden" id="features">
-      {/* Background Decorativo */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" 
-           style={{ 
-             backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', 
-             backgroundSize: '30px 30px' 
-           }} 
-      />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* Header de la Sección */}
-        <div className="mb-24 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="inline-block mb-4 px-4 py-1.5 rounded-full border border-gray-200 bg-white shadow-sm"
-          >
-            <span className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">Excelencia & Calidad</span>
-          </motion.div>
-
-          <motion.h2 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tight leading-tight"
-          >
-            ¿Por qué elegir <span className="text-transparent bg-clip-text bg-gradient-to-r from-hik-red to-red-600">HikStore</span>?
-          </motion.h2>
+    <section className="bg-white relative z-10" id="features">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-40">
+        <div className="flex flex-col lg:flex-row">
           
-          <motion.div
-             initial={{ width: 0 }}
-             whileInView={{ width: "100px" }}
-             viewport={{ once: true }}
-             className="h-1.5 bg-gray-900 mx-auto rounded-full"
-          />
-        </div>
-
-        {/* Grid de Tarjetas */}
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }} // Se activa un poco antes de llegar
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {FEATURES.map((feature, i) => {
-            // Colores dinámicos basados en el índice para variedad visual elegante
-            const borderColor = i === 0 ? 'group-hover:border-hik-green' : i === 1 ? 'group-hover:border-hik-blue' : 'group-hover:border-hik-red';
-            const shadowColor = i === 0 ? 'group-hover:shadow-green-500/10' : i === 1 ? 'group-hover:shadow-blue-500/10' : 'group-hover:shadow-red-500/10';
-            const iconColor = i === 0 ? 'text-hik-green' : i === 1 ? 'text-hik-blue' : 'text-hik-red';
-            const bgIcon = i === 0 ? 'bg-green-50' : i === 1 ? 'bg-blue-50' : 'bg-red-50';
-
-            return (
-              <motion.div 
-                key={feature.id}
-                variants={cardVariants}
-                className={`group relative bg-white p-10 rounded-[2rem] border-2 border-transparent transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl ${borderColor} ${shadowColor}`}
+          {/* Sticky Header Column */}
+          <div className="lg:w-5/12 mb-20 lg:mb-0 relative z-10">
+            <div className="sticky top-32">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="flex items-center space-x-3 mb-8"
               >
-                 {/* Borde sutil por defecto */}
-                 <div className="absolute inset-0 rounded-[2rem] border border-gray-100 pointer-events-none transition-colors duration-500 group-hover:border-transparent" />
-
-                 {/* Número de fondo (Marca de agua) */}
-                 <div className="absolute -right-4 -top-6 text-[10rem] font-black text-gray-50 opacity-0 group-hover:opacity-100 transition-all duration-700 select-none z-0 rotate-12 group-hover:rotate-0">
-                    0{i + 1}
-                 </div>
-
-                 <div className="relative z-10 flex flex-col h-full">
-                    {/* Icon Container */}
-                    <motion.div 
-                      variants={iconVariants}
-                      className={`w-20 h-20 rounded-2xl ${bgIcon} ${iconColor} flex items-center justify-center mb-8 shadow-inner transition-colors duration-300`}
-                    >
-                      <feature.icon className="w-10 h-10" strokeWidth={1.5} />
-                    </motion.div>
-
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight group-hover:text-gray-800 transition-colors">
-                      {feature.title}
-                    </h3>
-                    
-                    <p className="text-gray-500 leading-relaxed text-lg font-light">
-                      {feature.description}
-                    </p>
-
-                    {/* Línea decorativa inferior que crece */}
-                    <div className={`mt-auto pt-8 w-12 h-1 rounded-full bg-gray-200 transition-all duration-500 group-hover:w-full ${i === 0 ? 'group-hover:bg-hik-green' : i === 1 ? 'group-hover:bg-hik-blue' : 'group-hover:bg-hik-red'}`} />
-                 </div>
+                 <div className="h-[1px] w-8 bg-hik-red"></div>
+                 <span className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase">Nuestros Valores</span>
               </motion.div>
-            );
-          })}
-        </motion.div>
 
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 mb-10 tracking-tighter leading-none"
+              >
+                Por qué <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-br from-hik-red to-red-900">
+                  Elegirnos.
+                </span>
+              </motion.h2>
+
+              <motion.p 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-xl text-gray-500 max-w-md leading-relaxed font-light mb-12 border-l border-gray-200 pl-6"
+              >
+                En HikStore Aguascalientes, combinamos la ingeniería de clase mundial de HikVision con un servicio local inigualable.
+              </motion.p>
+              
+              <motion.a 
+                href="#contact"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+                className="inline-flex items-center text-sm font-bold text-gray-900 border-b-2 border-gray-900 pb-1 hover:text-hik-red hover:border-hik-red transition-colors"
+              >
+                <span>Conoce al equipo</span>
+              </motion.a>
+            </div>
+          </div>
+
+          {/* Scrollable List Column */}
+          <div className="lg:w-7/12 lg:pl-16">
+             <div className="flex flex-col">
+                {FEATURES.map((feature, i) => (
+                  <FeatureItem key={feature.id} feature={feature} index={i} />
+                ))}
+             </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );
