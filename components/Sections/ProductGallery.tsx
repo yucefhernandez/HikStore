@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, MotionValue, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PRODUCTS } from '../../constants';
 import { ArrowUpRight, CheckCircle2, ChevronRight, ChevronLeft } from 'lucide-react';
 
@@ -18,7 +18,7 @@ const useMediaQuery = (query: string) => {
 
 // --- SHARED COMPONENTS ---
 
-const FeatureTag = ({ text }: { text: string }) => (
+const FeatureTag: React.FC<{ text: string }> = ({ text }) => (
   <div className="flex items-center space-x-1.5 bg-gray-50 border border-gray-100 px-3 py-1.5 rounded-lg">
     <CheckCircle2 size={12} className="text-hik-green" />
     <span className="text-[10px] font-bold uppercase text-gray-600 tracking-wide">{text}</span>
@@ -30,53 +30,26 @@ const FeatureTag = ({ text }: { text: string }) => (
 interface DesktopCardProps {
   product: typeof PRODUCTS[0];
   index: number;
-  progress: MotionValue<number>;
-  range: [number, number];
-  targetScale: number;
-  isLast: boolean;
-  stepSize: number;
 }
 
-const DesktopCard: React.FC<DesktopCardProps> = ({ product, index, progress, range, targetScale, isLast, stepSize }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const scale = useTransform(progress, range, [1, targetScale]);
-  
-  // Logic: Stay opacity 1 significantly longer.
-  // We only start fading when the next card has fully arrived + a delay buffer.
-  const scrollStart = range[0];
-  // stepSize is roughly 1/N. We wait until "1.5 steps" have passed before starting to fade.
-  // This ensures the card underneath stays visible while the one on top slides in.
-  const fadeStart = Math.min(scrollStart + stepSize * 1.5, 1);
-  
-  const contentOpacity = useTransform(
-    progress,
-    [scrollStart, fadeStart, 1],
-    [1, 1, 0]
-  );
-  
+const DesktopCard: React.FC<DesktopCardProps> = ({ product, index }) => {
   return (
-    <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-0">
-      <motion.div 
+    <div className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-0">
+      <div 
         style={{ 
-          scale,
-          top: 0,
           zIndex: index, 
           backgroundColor: '#ffffff', 
         }} 
-        className="relative flex w-full h-full origin-top shadow-2xl rounded-[2rem] border border-gray-200 overflow-hidden will-change-transform"
+        className="relative flex w-full h-full md:h-[90%] shadow-2xl rounded-[2rem] border border-gray-200 overflow-hidden bg-white"
       >
-        <motion.div 
-            style={{ opacity: isLast ? 1 : contentOpacity }}
-            className="grid grid-cols-2 w-full h-full"
-        >
+        <div className="grid grid-cols-2 w-full h-full">
             {/* Left: Text Content */}
             <div className="flex flex-col justify-center px-24 bg-gradient-to-br from-gray-50 to-white relative">
                 <motion.div 
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  viewport={{ once: true }} // Changed to true to prevent resetting/fading out on re-renders
+                  viewport={{ once: true }}
                 >
                     <div className="flex items-center space-x-4 mb-6">
                         <span className="text-6xl font-black text-gray-200 select-none">0{index + 1}</span>
@@ -126,7 +99,7 @@ const DesktopCard: React.FC<DesktopCardProps> = ({ product, index, progress, ran
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    viewport={{ once: true }} // Consistent viewport behavior
+                    viewport={{ once: true }}
                     className="relative z-10 w-full h-full"
                 >
                     <img 
@@ -137,46 +110,24 @@ const DesktopCard: React.FC<DesktopCardProps> = ({ product, index, progress, ran
                     <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black/10 mix-blend-multiply" />
                 </motion.div>
             </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 };
 
 const DesktopGallery = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end']
-  });
-
   return (
-    <section ref={containerRef} className="relative bg-gray-50 px-8 py-20" id="products">
-      <div className="max-w-[90%] mx-auto mb-20 text-center sticky top-20 z-0">
+    <section className="relative bg-gray-50 px-8 py-20" id="products">
+      <div className="max-w-[90%] mx-auto mb-20 text-center">
          <h2 className="text-4xl font-bold mb-4">Catálogo <span className="text-hik-red">2024</span></h2>
          <p className="text-gray-500">Tecnología de punta disponible ahora</p>
       </div>
       
-      {/* Increased spacing to provide better scroll control and prevent rapid transitions */}
       <div className="space-y-[50vh]">
-        {PRODUCTS.map((product, i) => {
-            // Recalculate range distribution based on longer scroll area
-            const stepSize = 1 / PRODUCTS.length;
-            const targetScale = 1 - ( (PRODUCTS.length - 1 - i) * 0.05 );
-            
-            return (
-                <DesktopCard 
-                    key={product.id}
-                    product={product}
-                    index={i}
-                    progress={scrollYProgress}
-                    range={[i * stepSize, 1]}
-                    targetScale={targetScale}
-                    isLast={i === PRODUCTS.length - 1}
-                    stepSize={stepSize}
-                />
-            );
-        })}
+        {PRODUCTS.map((product, i) => (
+             <DesktopCard key={product.id} product={product} index={i} />
+        ))}
       </div>
     </section>
   );

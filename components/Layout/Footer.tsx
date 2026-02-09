@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, Float } from '@react-three/drei';
 import { SecurityCamera } from '../UI/3D/SecurityCamera';
 import { motion } from 'framer-motion';
+import Logo from '../Img/Icono.png';
 
 const Footer: React.FC = () => {
   const [mouseX, setMouseX] = useState(0);
@@ -59,18 +60,32 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Top Section: Main Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-
-          {/* Column 1: Brand */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-3xl font-black text-white tracking-tight mb-2">{CONTACT_DATA.brand}</h3>
-              <div className="flex items-center space-x-2 text-slate-400 text-sm">
-                <ShieldCheck size={16} className="text-hik-green" />
-                <span className="font-medium tracking-wide uppercase">{CONTACT_DATA.distributor}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
+          
+          {/* Column 1: Brand - Spanning more space to avoid overlap */}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-6 sm:space-y-0 sm:space-x-8">
+              <div className="w-24 h-24 bg-white/5 backdrop-blur-md rounded-3xl flex items-center justify-center p-5 border border-white/10 shadow-2xl shrink-0 group">
+                <img 
+                    src={Logo} 
+                    alt="Logo" 
+                    className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(215,25,32,0.4)] group-hover:scale-110 transition-transform duration-500" 
+                />
+              </div>
+              <div className="flex flex-col justify-center">
+                <h3 className="text-3xl font-black text-white tracking-tight leading-tight mb-2">
+                  HikStore<br />
+                  <span className="text-hik-red">Aguascalientes</span>
+                </h3>
+                <div className="flex items-center space-x-3 text-slate-400">
+                  <div className="bg-white/5 p-1 rounded-md border border-white/10">
+                    <ShieldCheck size={14} className="text-hik-green" />
+                  </div>
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase">{CONTACT_DATA.distributor}</span>
+                </div>
               </div>
             </div>
-            <p className="text-slate-400 leading-relaxed text-sm">
+            <p className="text-slate-400 leading-relaxed text-sm max-w-md">
               Llevando la seguridad corporativa y residencial al siguiente nivel con tecnología de vanguardia y soporte experto en Aguascalientes.
             </p>
             <div className="flex space-x-3 pt-2">
@@ -93,11 +108,11 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-hik-red pl-3">Navegación</h4>
             <ul className="space-y-4">
               {[
-                { label: 'Catálogo 2024', href: '#products' },
+                { label: 'Catálogo 2026', href: '#products' },
                 { label: 'Nosotros', href: '#features' },
                 { label: 'Ubicación', href: '#location' },
                 { label: 'Soporte Técnico', href: '#contact' },
@@ -113,39 +128,39 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Contact Info */}
-          <div>
-            <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-hik-blue pl-3">Contacto</h4>
-            <ul className="space-y-6">
-              <li className="flex items-start space-x-4 group cursor-default">
-                <div className="mt-1 w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
-                  <MapPin size={16} />
-                </div>
-                <div className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-                  <span className="block font-bold text-white mb-1">Showroom</span>
-                  {CONTACT_DATA.address}
-                </div>
-              </li>
-              <li className="flex items-center space-x-4 group">
-                <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
-                  <Phone size={16} />
-                </a>
-                <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
-                  {CONTACT_DATA.phone}
-                </a>
-              </li>
-              <li className="flex items-center space-x-4 group">
-                <a href={`mailto:${CONTACT_DATA.email}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
-                  <Mail size={16} />
-                </a>
-                <a href={`mailto:${CONTACT_DATA.email}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
-                  {CONTACT_DATA.email}
-                </a>
-              </li>
-            </ul>
+          <div className="lg:col-span-2">
+             <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-hik-blue pl-3">Contacto</h4>
+             <ul className="space-y-6">
+                <li className="flex items-start space-x-4 group cursor-default">
+                   <div className="mt-1 w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
+                      <MapPin size={16} />
+                   </div>
+                   <div className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+                      <span className="block font-bold text-white mb-1">HickStore</span>
+                      {CONTACT_DATA.address}
+                   </div>
+                </li>
+                <li className="flex items-center space-x-4 group">
+                   <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
+                      <Phone size={16} />
+                   </a>
+                   <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
+                      {CONTACT_DATA.phone}
+                   </a>
+                </li>
+                <li className="flex items-center space-x-4 group">
+                   <a href={`mailto:${CONTACT_DATA.email}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
+                      <Mail size={16} />
+                   </a>
+                   <a href={`mailto:${CONTACT_DATA.email}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
+                      {CONTACT_DATA.email}
+                   </a>
+                </li>
+             </ul>
           </div>
 
           {/* Column 4: Newsletter / Action */}
-          <div>
+          <div className="lg:col-span-3">
             <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-white pl-3">Boletín</h4>
             <p className="text-sm text-slate-400 mb-6">
               Recibe las últimas actualizaciones de firmware y ofertas exclusivas de HikVision.

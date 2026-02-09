@@ -4,7 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
 import { SecurityCamera } from '../UI/3D/SecurityCamera';
 import { ChevronRight } from 'lucide-react';
-import logoWide from '../../src/assets/logos/lg_wide.jpg';
+import Logo from '../Img/Icono.png';
 
 // Curva de entrada cinematográfica
 const cinematicEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -69,8 +69,9 @@ const Hero: React.FC = () => {
 
 
         {/* Left Column: Text Content */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-1 mt-12 md:mt-20">
-
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 mt-6 md:mt-0">
+          
+        
 
 
           <motion.h2

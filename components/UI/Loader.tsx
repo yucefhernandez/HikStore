@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Zap, Eye, CheckCircle2 } from 'lucide-react';
+import Logo from '../Img/Icono.png';
 
 interface LoaderProps {
   onFinished: () => void;
@@ -100,6 +101,21 @@ const Loader: React.FC<LoaderProps> = ({ onFinished }) => {
       {/* Contenedor Principal */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full">
         
+        {/* Brand Logo - Creative integration in loader */}
+        <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-8 w-16 h-16 md:w-20 md:h-20 relative"
+        >
+            <div className="absolute inset-0 bg-hik-red/20 rounded-2xl blur-2xl animate-pulse" />
+            <img 
+                src={Logo} 
+                alt="HikStore" 
+                className="relative w-full h-full object-contain filter drop-shadow-2xl" 
+            />
+        </motion.div>
+
         {/* Animación Tipográfica Grande */}
         <motion.div 
           className="flex items-baseline overflow-hidden px-4 py-4"
