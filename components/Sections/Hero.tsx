@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
@@ -15,6 +15,26 @@ const Hero: React.FC = () => {
   const opacityText = useTransform(scrollY, [0, 300], [1, 0]);
 
   const [mouseX, setMouseX] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Configuración responsiva de la cámara
+  const getCameraSettings = () => {
+    if (windowWidth < 768) { // Mobile
+      return { scale: 0.25, position: [0, 0.2, 0] as [number, number, number] };
+    } else if (windowWidth < 1280) { // Laptop
+      return { scale: 0.25, position: [-0.4, -0.6, 0] as [number, number, number] };
+    } else { // Desktop Grande
+      return { scale: 0.23, position: [-0.6, -0.6, 0] as [number, number, number] };
+    }
+  };
+
+  const { scale, position } = getCameraSettings();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX } = e;
@@ -47,22 +67,12 @@ const Hero: React.FC = () => {
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-between">
 
-        {/* Left Column: Text Content */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-1 mt-6 md:mt-0">
 
-          {/* Badge Entrada Suave */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: cinematicEase, delay: 0.2 }}
-            className="mb-6 flex items-center space-x-2 bg-white/80 backdrop-blur-md border border-gray-200 px-5 py-2 rounded-full shadow-sm"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-hik-green opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-hik-green"></span>
-            </span>
-            <span className="text-[10px] font-bold text-gray-600 tracking-widest uppercase">Distribuidor Oficial</span>
-          </motion.div>
+        {/* Left Column: Text Content */}
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 mt-6 md:mt-0">
+          
+        
+
 
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
@@ -116,6 +126,18 @@ const Hero: React.FC = () => {
           transition={{ duration: 1.2, ease: cinematicEase }}
           className="w-full md:w-1/2 h-[35vh] md:h-[80vh] relative cursor-grab active:cursor-grabbing order-2 md:order-2 flex items-center justify-center"
         >
+          {/* Logo Relativo a la Columna Derecha */}
+          <div className="absolute top-0 right-0 md:top-4 md:right-4 z-20">
+             <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="flex items-center bg-white/80 backdrop-blur-md border border-gray-200 p-1 rounded-xl shadow-lg"
+            >
+              <img src={logoWide} alt="HikVision" className="h-10 md:h-14 w-auto object-contain" />
+            </motion.div>
+          </div>
+
           {/* Scene Setup */}
           <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 9], fov: 30 }}>
             <Suspense fallback={null}>
@@ -137,9 +159,9 @@ const Hero: React.FC = () => {
                   */}
                 <SecurityCamera
                   mouseX={mouseX}
-                  scale={1.25}
-                  rotation={[0.1, -2.5, 0]}
-                  position={[0.5, -0.6, 0]}
+                  scale={scale}
+                  rotation={[0, 0, 0]}
+                  position={position}
                 />
               </Float>
 

@@ -23,19 +23,19 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav 
+    <nav
       className={`fixed left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-50 transition-all duration-700 ease-[cubic-bezier(0.25,0.4,0.25,1)] ${scrolled ? 'top-4' : 'top-6'}`}
     >
-      <div 
+      <div
         className={`
           relative rounded-full px-6 py-3 flex justify-between items-center border transition-all duration-500 ease-[cubic-bezier(0.25,0.4,0.25,1)]
-          ${scrolled 
-            ? 'bg-white/90 border-gray-200 shadow-2xl shadow-gray-900/5 backdrop-blur-xl' 
+          ${scrolled
+            ? 'bg-white/90 border-gray-200 shadow-2xl shadow-gray-900/5 backdrop-blur-xl'
             : 'bg-white/60 border-white/40 shadow-lg shadow-gray-900/0 backdrop-blur-md'
           }
         `}
       >
-        
+
         {/* Logo */}
         <a href="#" className="flex items-center space-x-3 group">
             <div className="relative w-10 h-10 flex items-center justify-center">
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center bg-gray-100/50 rounded-full p-1 border border-gray-200/50">
           {navLinks.map((link) => (
-            <a 
+            <a
               key={link.name}
               href={link.href}
               className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white hover:shadow-sm rounded-full transition-all duration-200"
@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
             
             <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
             {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+          </button>
         </div>
       </div>
 
@@ -103,6 +103,11 @@ const Navbar: React.FC = () => {
           >
              <Phone size={20} />
           </a>
+        ))}
+        <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="sm:hidden px-4 py-3 text-sm font-bold text-center bg-gray-900 text-white rounded-xl flex items-center justify-center space-x-2">
+          <Phone size={16} />
+          <span>Llamar Ahora</span>
+        </a>
       </div>
     </nav>
   );
