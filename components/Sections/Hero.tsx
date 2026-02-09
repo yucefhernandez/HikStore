@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
@@ -15,6 +15,26 @@ const Hero: React.FC = () => {
   const opacityText = useTransform(scrollY, [0, 300], [1, 0]);
 
   const [mouseX, setMouseX] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Configuración responsiva de la cámara
+  const getCameraSettings = () => {
+    if (windowWidth < 768) { // Mobile
+      return { scale: 0.25, position: [0, 0.2, 0] as [number, number, number] };
+    } else if (windowWidth < 1280) { // Laptop
+      return { scale: 0.25, position: [-0.4, -0.6, 0] as [number, number, number] };
+    } else { // Desktop Grande
+      return { scale: 0.23, position: [-0.6, -0.6, 0] as [number, number, number] };
+    }
+  };
+
+  const { scale, position } = getCameraSettings();
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX } = e;
@@ -43,16 +63,6 @@ const Hero: React.FC = () => {
         >
           HIKVISION
         </motion.h1>
-      </motion.div>
-
-      {/* Badge Flotante Superior Izquierda */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, ease: cinematicEase, delay: 0.2 }}
-        className="absolute top-16 right-6 md:top-24 md:right-10 flex items-center bg-white/80 backdrop-blur-md border border-gray-200 p-1 rounded-xl shadow-lg z-20"
-      >
-        <img src={logoWide} alt="HikVision" className="h-10 md:h-14 w-auto object-contain" />
       </motion.div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-between">
@@ -115,6 +125,18 @@ const Hero: React.FC = () => {
           transition={{ duration: 1.2, ease: cinematicEase }}
           className="w-full md:w-1/2 h-[35vh] md:h-[80vh] relative cursor-grab active:cursor-grabbing order-2 md:order-2 flex items-center justify-center"
         >
+          {/* Logo Relativo a la Columna Derecha */}
+          <div className="absolute top-0 right-0 md:top-4 md:right-4 z-20">
+             <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="flex items-center bg-white/80 backdrop-blur-md border border-gray-200 p-1 rounded-xl shadow-lg"
+            >
+              <img src={logoWide} alt="HikVision" className="h-10 md:h-14 w-auto object-contain" />
+            </motion.div>
+          </div>
+
           {/* Scene Setup */}
           <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 9], fov: 30 }}>
             <Suspense fallback={null}>
@@ -136,9 +158,9 @@ const Hero: React.FC = () => {
                   */}
                 <SecurityCamera
                   mouseX={mouseX}
-                  scale={0.25}
-                  rotation={[0.1, 0, 0]}
-                  position={[-0.9, -0.6, 0]}
+                  scale={scale}
+                  rotation={[0, 0, 0]}
+                  position={position}
                 />
               </Float>
 
