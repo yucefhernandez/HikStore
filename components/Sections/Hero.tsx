@@ -5,6 +5,7 @@ import { Environment, ContactShadows, Float } from '@react-three/drei';
 import { SecurityCamera } from '../UI/3D/SecurityCamera';
 import { ChevronRight } from 'lucide-react';
 import Logo from '../Img/Icono.png';
+import logoWide from '../../src/assets/logos/lg_wide.jpg';
 
 // Curva de entrada cinematográfica
 const cinematicEase: [number, number, number, number] = [0.22, 1, 0.36, 1];

@@ -95,19 +95,16 @@ const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
-          {/* Botón de teléfono - Solo icono en móvil */}
+          
+          {/* Botón de teléfono en móvil */}
           <a 
             href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} 
             className="sm:hidden px-4 py-3 text-sm font-bold text-center bg-gray-900 text-white rounded-xl flex items-center justify-center space-x-2"
             onClick={() => setIsOpen(false)}
           >
-             <Phone size={20} />
+            <Phone size={16} />
+            <span>Llamar Ahora</span>
           </a>
-        ))}
-        <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="sm:hidden px-4 py-3 text-sm font-bold text-center bg-gray-900 text-white rounded-xl flex items-center justify-center space-x-2">
-          <Phone size={16} />
-          <span>Llamar Ahora</span>
-        </a>
       </div>
     </nav>
   );
