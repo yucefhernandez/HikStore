@@ -67,9 +67,14 @@ const Navbar: React.FC = () => {
 
         {/* CTA Button & Mobile Toggle */}
         <div className="flex items-center space-x-3">
-            <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="hidden sm:flex items-center space-x-2 px-5 py-2.5 bg-gray-900 text-white rounded-full text-xs font-bold hover:bg-hik-red transition-all shadow-lg shadow-gray-900/20 active:scale-95 group">
-                <Phone size={14} className="group-hover:rotate-12 transition-transform" />
-                <span>{CONTACT_DATA.phone}</span>
+            {/* Botón de teléfono - Solo icono en desktop */}
+            <a 
+              href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`}
+              className="hidden sm:flex items-center justify-center w-10 h-10 bg-gray-900 text-white rounded-full hover:bg-hik-red transition-all shadow-lg shadow-gray-900/20 active:scale-95 group"
+              title={`Llamar: ${CONTACT_DATA.phone}`}
+              aria-label={`Llamar a ${CONTACT_DATA.phone}`}
+            >
+                <Phone size={18} className="group-hover:rotate-12 transition-transform" />
             </a>
             
             <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
@@ -90,9 +95,13 @@ const Navbar: React.FC = () => {
               {link.name}
             </a>
           ))}
-          <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="sm:hidden px-4 py-3 text-sm font-bold text-center bg-gray-900 text-white rounded-xl flex items-center justify-center space-x-2">
-             <Phone size={16} />
-             <span>Llamar Ahora</span>
+          {/* Botón de teléfono - Solo icono en móvil */}
+          <a 
+            href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} 
+            className="sm:hidden px-4 py-3 text-sm font-bold text-center bg-gray-900 text-white rounded-xl flex items-center justify-center space-x-2"
+            onClick={() => setIsOpen(false)}
+          >
+             <Phone size={20} />
           </a>
       </div>
     </nav>

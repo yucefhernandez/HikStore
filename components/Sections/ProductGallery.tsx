@@ -34,7 +34,7 @@ interface DesktopCardProps {
 
 const DesktopCard: React.FC<DesktopCardProps> = ({ product, index }) => {
   return (
-    <div className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-0">
+  <div className="h-[85vh] flex items-center justify-center sticky top-20 px-4 md:px-0">
       <div 
         style={{ 
           zIndex: index, 
