@@ -1,41 +1,46 @@
-import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useRef, useMemo } from 'react';
+import { useFrame, ThreeElement } from '@react-three/fiber';
 import { Group } from 'three';
 import { useGLTF } from '@react-three/drei';
 
-export const SecurityCamera = (props: any) => {
-  const groupRef = useRef<Group>(null);
+interface SecurityCameraProps extends Omit<ThreeElement<typeof Group>, 'ref'> {
+  mouseX?: number;
+}
 
-  // Load the GLB model
-  // Note: Ensure the path is correct relative to the public folder or use import
+export const SecurityCamera: React.FC<SecurityCameraProps> = ({ 
+  mouseX, 
+  ...props 
+}) => {
+  const animRef = useRef<Group>(null);
   const { scene } = useGLTF('/components/UI/3D/CCVT.glb');
+  
+  // Clonamos la escena para que cada instancia (Hero/Footer) tenga su propio objeto
+  const clonedScene = useMemo(() => scene.clone(), [scene]);
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      // Gentle floating animation
-      groupRef.current.position.y = props.position ? props.position[1] + Math.sin(state.clock.elapsedTime * 0.5) * 0.05 : Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+  useFrame((state) => {    if (animRef.current) {
+      // Tracking Logic: Relative to parent group
+      if (typeof mouseX === 'number' && !isNaN(mouseX)) {
+        // Limitamos el rango de rotación para evitar que "desaparezca" por giros excesivos
+        const targetRotationY = mouseX * 0.8; 
+        const targetRotationX = -Math.abs(mouseX) * 0.15;
 
-      // Tracking Logic
-      if (typeof props.mouseX === 'number') {
-        const targetRotationY = props.mouseX * 1;
-        const targetRotationX = -Math.abs(props.mouseX) * 0.1;
-
-        groupRef.current.rotation.y += (targetRotationY - groupRef.current.rotation.y) * 0.2;
-        groupRef.current.rotation.x += (targetRotationX - groupRef.current.rotation.x) * 0.2;
+        // Suavizado más lento (0.05) para evitar saltos bruscos al cargar
+        animRef.current.rotation.y += (targetRotationY - animRef.current.rotation.y) * 0.05;
+        animRef.current.rotation.x += (targetRotationX - animRef.current.rotation.x) * 0.05;
       } else {
-        // Idle scanning
-        groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
+        // Idle scanning suave cuando no hay interacción clara
+        const idleY = Math.sin(state.clock.elapsedTime * 0.4) * 0.1;
+        animRef.current.rotation.y += (idleY - animRef.current.rotation.y) * 0.05;
+        animRef.current.rotation.x += (0 - animRef.current.rotation.x) * 0.05;
       }
     }
   });
 
   return (
-    <group ref={groupRef} {...props} dispose={null}>
-      <primitive
-        object={scene}
-        scale={0.2}
-        position={[-1, 0.3, 0]}
-      />
+    <group {...props} dispose={null}>
+      <group ref={animRef}>
+        <primitive object={clonedScene} />
+      </group>
     </group>
   );
 };

@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Environment, ContactShadows, Float } from '@react-three/drei';
 import { SecurityCamera } from '../UI/3D/SecurityCamera';
 import { ChevronRight } from 'lucide-react';
+import logoWide from '../../src/assets/logos/lg_wide.jpg';
 
 // Curva de entrada cinematográfica
 const cinematicEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -44,24 +45,23 @@ const Hero: React.FC = () => {
         </motion.h1>
       </motion.div>
 
+      {/* Badge Flotante Superior Izquierda */}
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, ease: cinematicEase, delay: 0.2 }}
+        className="absolute top-16 right-6 md:top-24 md:right-10 flex items-center bg-white/80 backdrop-blur-md border border-gray-200 p-1 rounded-xl shadow-lg z-20"
+      >
+        <img src={logoWide} alt="HikVision" className="h-10 md:h-14 w-auto object-contain" />
+      </motion.div>
+
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col md:flex-row items-center justify-between">
 
-        {/* Left Column: Text Content */}
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-1 mt-6 md:mt-0">
 
-          {/* Badge Entrada Suave */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: cinematicEase, delay: 0.2 }}
-            className="mb-6 flex items-center space-x-2 bg-white/80 backdrop-blur-md border border-gray-200 px-5 py-2 rounded-full shadow-sm"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-hik-green opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-hik-green"></span>
-            </span>
-            <span className="text-[10px] font-bold text-gray-600 tracking-widest uppercase">Distribuidor Oficial</span>
-          </motion.div>
+        {/* Left Column: Text Content */}
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-1 mt-12 md:mt-20">
+
+
 
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
@@ -136,9 +136,9 @@ const Hero: React.FC = () => {
                   */}
                 <SecurityCamera
                   mouseX={mouseX}
-                  scale={1.25}
-                  rotation={[0.1, -2.5, 0]}
-                  position={[0.5, -0.6, 0]}
+                  scale={0.25}
+                  rotation={[0.1, 0, 0]}
+                  position={[-0.9, -0.6, 0]}
                 />
               </Float>
 

@@ -18,49 +18,49 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer 
-      className="relative bg-slate-950 text-white pt-24 pb-12 overflow-hidden" 
+    <footer
+      className="relative bg-slate-950 text-white pt-24 pb-12 overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       {/* Decorative Grid Background (Subtle) */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ 
-             backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', 
-             backgroundSize: '40px 40px' 
-           }} 
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }}
       />
 
       {/* --- 3D CAMERA "PEEKING" CORNER --- */}
       {/* Positioned absolute top-right of the footer content */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] pointer-events-none z-0 opacity-80 mix-blend-screen">
-          <Canvas camera={{ position: [0, 0, 6], fov: 35 }}>
-             <Suspense fallback={null}>
-                <Environment preset="city" />
-                <ambientLight intensity={1} />
-                <spotLight position={[5, 5, 5]} intensity={20} angle={0.3} penumbra={1} color="#D71920" />
-                <spotLight position={[-5, 5, -5]} intensity={10} color="#38BDF8" />
-                
-                <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.2}>
-                   {/* Rotated to look like it's mounted on the top-right corner looking down-left */}
-                   <group rotation={[0.3, -0.5, 0]} position={[1, 1, 0]}>
-                      <SecurityCamera mouseX={mouseX} scale={1.4} />
-                   </group>
-                </Float>
-             </Suspense>
-          </Canvas>
-          
-          {/* "REC" Overlay Effect */}
-          <div className="absolute top-10 right-10 flex items-center space-x-2">
-              <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]" />
-              <span className="text-red-600 font-mono text-xs font-bold tracking-widest animate-pulse">REC ● LIVE</span>
-          </div>
+        <Canvas camera={{ position: [0, 0, 6], fov: 35 }}>
+          <Suspense fallback={null}>
+            <Environment preset="city" />
+            <ambientLight intensity={1} />
+            <spotLight position={[5, 5, 5]} intensity={20} angle={0.3} penumbra={1} color="#D71920" />
+            <spotLight position={[-5, 5, -5]} intensity={10} color="#38BDF8" />
+
+            <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.2}>
+              {/* Rotated to look like it's mounted on the top-right corner looking down-left */}
+              <group rotation={[0.3, -0.5, 0]} position={[1, 1, 0]}>
+                <SecurityCamera mouseX={mouseX} scale={1.4} />
+              </group>
+            </Float>
+          </Suspense>
+        </Canvas>
+
+        {/* "REC" Overlay Effect */}
+        <div className="absolute top-10 right-10 flex items-center space-x-2">
+          <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]" />
+          <span className="text-red-600 font-mono text-xs font-bold tracking-widest animate-pulse">REC ● LIVE</span>
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
         {/* Top Section: Main Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-          
+
           {/* Column 1: Brand */}
           <div className="space-y-6">
             <div>
@@ -79,8 +79,8 @@ const Footer: React.FC = () => {
                 { Icon: Instagram, href: `https://instagram.com/${CONTACT_DATA.instagram}` },
                 { Icon: Twitter, href: "#" }
               ].map(({ Icon, href }, idx) => (
-                <a 
-                  key={idx} 
+                <a
+                  key={idx}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -114,34 +114,34 @@ const Footer: React.FC = () => {
 
           {/* Column 3: Contact Info */}
           <div>
-             <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-hik-blue pl-3">Contacto</h4>
-             <ul className="space-y-6">
-                <li className="flex items-start space-x-4 group cursor-default">
-                   <div className="mt-1 w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
-                      <MapPin size={16} />
-                   </div>
-                   <div className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-                      <span className="block font-bold text-white mb-1">Showroom</span>
-                      {CONTACT_DATA.address}
-                   </div>
-                </li>
-                <li className="flex items-center space-x-4 group">
-                   <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
-                      <Phone size={16} />
-                   </a>
-                   <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
-                      {CONTACT_DATA.phone}
-                   </a>
-                </li>
-                <li className="flex items-center space-x-4 group">
-                   <a href={`mailto:${CONTACT_DATA.email}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
-                      <Mail size={16} />
-                   </a>
-                   <a href={`mailto:${CONTACT_DATA.email}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
-                      {CONTACT_DATA.email}
-                   </a>
-                </li>
-             </ul>
+            <h4 className="text-lg font-bold text-white mb-8 border-l-4 border-hik-blue pl-3">Contacto</h4>
+            <ul className="space-y-6">
+              <li className="flex items-start space-x-4 group cursor-default">
+                <div className="mt-1 w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
+                  <MapPin size={16} />
+                </div>
+                <div className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
+                  <span className="block font-bold text-white mb-1">Showroom</span>
+                  {CONTACT_DATA.address}
+                </div>
+              </li>
+              <li className="flex items-center space-x-4 group">
+                <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
+                  <Phone size={16} />
+                </a>
+                <a href={`tel:${CONTACT_DATA.phone.replace(/\s/g, '')}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
+                  {CONTACT_DATA.phone}
+                </a>
+              </li>
+              <li className="flex items-center space-x-4 group">
+                <a href={`mailto:${CONTACT_DATA.email}`} className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-hik-blue shrink-0 group-hover:bg-hik-blue group-hover:text-white transition-colors">
+                  <Mail size={16} />
+                </a>
+                <a href={`mailto:${CONTACT_DATA.email}`} className="text-sm text-slate-400 hover:text-white transition-colors font-medium">
+                  {CONTACT_DATA.email}
+                </a>
+              </li>
+            </ul>
           </div>
 
           {/* Column 4: Newsletter / Action */}
@@ -151,29 +151,29 @@ const Footer: React.FC = () => {
               Recibe las últimas actualizaciones de firmware y ofertas exclusivas de HikVision.
             </p>
             <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-               <div className="relative">
-                  <input 
-                    type="email" 
-                    placeholder="Tu correo electrónico" 
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-hik-red focus:ring-1 focus:ring-hik-red transition-all placeholder:text-slate-600"
-                  />
-               </div>
-               <button className="w-full bg-white text-slate-950 font-bold py-3 rounded-xl hover:bg-hik-red hover:text-white transition-all flex items-center justify-center space-x-2 group">
-                  <span>Suscribirse</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-               </button>
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="Tu correo electrónico"
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-hik-red focus:ring-1 focus:ring-hik-red transition-all placeholder:text-slate-600"
+                />
+              </div>
+              <button className="w-full bg-white text-slate-950 font-bold py-3 rounded-xl hover:bg-hik-red hover:text-white transition-all flex items-center justify-center space-x-2 group">
+                <span>Suscribirse</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </button>
             </form>
           </div>
 
         </div>
-        
+
         {/* Bottom Bar */}
         <div className="border-t border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
           <p>&copy; {new Date().getFullYear()} HikStore Aguascalientes. <span className="hidden md:inline">|</span> Distribuidor Autorizado.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-             <a href="#" className="hover:text-white transition-colors">Aviso de Privacidad</a>
-             <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
-             <a href="#" className="hover:text-white transition-colors">Mapa del Sitio</a>
+            <a href="#" className="hover:text-white transition-colors">Aviso de Privacidad</a>
+            <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
+            <a href="#" className="hover:text-white transition-colors">Mapa del Sitio</a>
           </div>
         </div>
       </div>
