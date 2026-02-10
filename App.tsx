@@ -9,7 +9,7 @@ import Contact from './components/Sections/Contact';
 import Footer from './components/Layout/Footer';
 import FloatingWhatsApp from './components/UI/FloatingWhatsApp';
 import Loader from './components/UI/Loader';
-
+import ProductMarquee from './components/Sections/ProductMarquee';
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,6 +28,7 @@ const App: React.FC = () => {
             <Hero />
             <Features />
             <ProductGallery />
+            <ProductMarquee />
             <Location />
             <Contact />
           </main>

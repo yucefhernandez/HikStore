@@ -1,9 +1,9 @@
 import React, { useRef, useMemo } from 'react';
-import { useFrame, ThreeElement } from '@react-three/fiber';
+import { useFrame, ThreeElements } from '@react-three/fiber';
 import { Group } from 'three';
 import { useGLTF } from '@react-three/drei';
 
-interface SecurityCameraProps extends Omit<ThreeElement<typeof Group>, 'ref'> {
+interface SecurityCameraProps extends Omit<ThreeElements['group'], 'ref'> {
   mouseX?: number;
 }
 
