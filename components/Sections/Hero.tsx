@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
   // Configuración responsiva de la cámara
   const getCameraSettings = () => {
     if (windowWidth < 768) { // Mobile
-      return { scale: 0.25, position: [0, 0.2, 0] as [number, number, number] };
+      return { scale: 0.25, position: [-0.8, -0.5, 0] as [number, number, number], rotation: [1, 0, 0] as [number, number, number] };
     } else if (windowWidth < 1280) { // Laptop
       return { scale: 0.25, position: [-0.4, -0.6, 0] as [number, number, number] };
     } else { // Desktop Grande
@@ -71,8 +71,8 @@ const Hero: React.FC = () => {
 
         {/* Left Column: Text Content */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left order-2 md:order-1 mt-6 md:mt-0">
-          
-        
+
+
 
 
           <motion.h2
@@ -129,7 +129,7 @@ const Hero: React.FC = () => {
         >
           {/* Logo Relativo a la Columna Derecha */}
           <div className="absolute top-0 right-0 md:top-4 md:right-4 z-20">
-             <motion.div
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
