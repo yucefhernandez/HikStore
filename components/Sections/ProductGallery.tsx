@@ -51,7 +51,7 @@ const DesktopCard: React.FC<DesktopCardProps> = ({ product, index }) => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center space-x-4 mb-6">
+              <div className="flex items-center space-x-4 mb-6 p-4">
                 <span className="text-6xl font-black text-gray-200 select-none">0{index + 1}</span>
                 <div className="h-[2px] w-12 bg-hik-red" />
                 <span className="text-sm font-bold uppercase text-hik-red tracking-widest">{product.category}</span>
@@ -100,7 +100,7 @@ const DesktopCard: React.FC<DesktopCardProps> = ({ product, index }) => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative z-10 w-full h-full p-2"
+              className="relative z-10 w-full h-full"
             >
               <img
                 src={product.image}

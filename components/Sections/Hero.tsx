@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
   // Configuración responsiva de la cámara
   const getCameraSettings = () => {
     if (windowWidth < 768) { // Mobile
-      return { scale: 0.25, position: [-0.8, -0.5, 0] as [number, number, number], rotation: [1, 0, 0] as [number, number, number] };
+      return { scale: 0.25, position: [-0.8, -0.5, 0] as [number, number, number], rotation: [0, 0, 0] as [number, number, number] };
     } else if (windowWidth < 1280) { // Laptop
       return { scale: 0.25, position: [-0.4, -0.6, 0] as [number, number, number] };
     } else { // Desktop Grande
